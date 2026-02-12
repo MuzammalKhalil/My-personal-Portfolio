@@ -35,7 +35,7 @@ section {
 }
 
 .header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -49,7 +49,6 @@ section {
 }
 
 .header.sticky {
-    /* border-bottom: .1rem solid rgba(0, 0, 0, .2); */
     border-bottom: 1px solid #C9A227;
 }
 
