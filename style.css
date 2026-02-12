@@ -249,16 +249,21 @@ span {
   border-radius: 2rem;
   text-align: center;
   border: 0.2rem solid var(--bg-color);
-  transition: 0.5s ease;
+  transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother timing function */
   min-height: 320px; /* 💡 Added this for slightly more height */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* 🟢 Anti-flicker properties */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform, border-color;
 }
 
 .skills-container .skills-box:hover {
   border-color: var(--main-color);
-  transform: scale(1.02);
+  transform: scale(1.02) translateZ(0);
 }
 
 .skills-box i {
