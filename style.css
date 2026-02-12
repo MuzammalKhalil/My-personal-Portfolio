@@ -249,16 +249,18 @@ span {
   border-radius: 2rem;
   text-align: center;
   border: 0.2rem solid var(--bg-color);
-  transition: 0.5s ease;
-  min-height: 320px; /* 💡 Added this for slightly more height */
+  transition: 0.3s ease; /* Faster transition for better feel */
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  backface-visibility: hidden; /* Fix flickering */
+  will-change: transform;
 }
 
 .skills-container .skills-box:hover {
   border-color: var(--main-color);
-  transform: scale(1.02);
+  transform: translateY(-5px) scale(1.02); /* Added slight lift for better effect */
 }
 
 .skills-box i {
