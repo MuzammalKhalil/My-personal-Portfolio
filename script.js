@@ -78,20 +78,61 @@ form.addEventListener('submit', (e) => {
     form.reset();
 });
 
-// Animate skill bars on scroll
+// Animate skill bars on scroll and hover
 const skillBars = document.querySelectorAll(".skill-level");
+const skillsBoxes = document.querySelectorAll(".skills-box");
 
 skillBars.forEach((bar) => {
   const width = bar.style.width;
   bar.style.setProperty("--target-width", width);
   bar.style.width = "0%";
+  bar.textContent = "0%"; // Start at 0%
 });
 
-// Animate when section first appears
+// Function to animate the counter text
+function animateCounter(bar, target) {
+  let current = 0;
+  const duration = 1000; // 1 second to match CSS transition
+  const start = performance.now();
+
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    // Smooth easing for the number
+    const currentCount = Math.floor(progress * target);
+    bar.textContent = currentCount + "%";
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      bar.textContent = target + "%";
+    }
+  }
+  requestAnimationFrame(update);
+}
+
+// Add hover listeners to each skills box
+skillsBoxes.forEach((box) => {
+  const bar = box.querySelector(".skill-level");
+  const targetWidth = parseInt(bar.style.getPropertyValue("--target-width"));
+
+  box.addEventListener("mouseenter", () => {
+    animateCounter(bar, targetWidth);
+  });
+
+  box.addEventListener("mouseleave", () => {
+    bar.textContent = "0%";
+  });
+});
+
+// Animate when section first appears (Original scroll logic)
 function animateSkillBars() {
   skillBars.forEach((bar) => {
     const width = bar.style.getPropertyValue("--target-width");
     bar.style.width = width;
+    const target = parseInt(width);
+    animateCounter(bar, target);
   });
 }
 
